@@ -1,0 +1,41 @@
+
+A) Compile:
+
+javac -proc:none -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./src/main/java/" -d targets src/main/java/Indexer.java 
+
+javac -proc:none -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./src/main/java/" -d targets src/main/java/Searcher.java
+
+
+B) Running:
+
+1) Indexing:
+
+java -Xms1024m -Xmx4096m -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets" Indexer -documents_path documents/ -index_path index_files/
+
+Default: -documents_path=’documents/’, -index_path=’index_files/’
+
+
+2) Searching:
+
+i) Non-interactive (Non-interactive (query is specified through command line):
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -query_string "Caruta" -interactive false
+
+ii) Interactive (queries are specified inside the application):
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -interactive true
+
+Default: -index_path=’index_files/’,  -interactive=’false’
+
+
+Tests
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -query_string "și si ca că ci" -interactive false
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -query_string "camasa" -interactive false
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -query_string "camasilor" -interactive false
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -query_string "camașile" -interactive false
+
+java -cp "./dependencies/lucene-analyzers-common-8.11.0.jar:./dependencies/lucene-core-8.11.0.jar:./dependencies/lucene-queryparser-8.11.0.jar:./dependencies/tika-app-2.1.0.jar:./targets/" Searcher -index_path index_files/ -query_string "cămasa" -interactive false
